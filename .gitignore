@@ -1,0 +1,4 @@
+config.json
+.eslintrc.json
+node_modules/
+testing.js
