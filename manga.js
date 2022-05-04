@@ -81,8 +81,6 @@ async function getFollowingUpdates(lastPollTime) {
         await checkAuth();
         const resp = await axios.get(`${mdEndpoint}/user/follows/manga/feed?limit=100`
         +`&${new URLSearchParams({createdAtSince: lastPollTime}).toString()}`
-        //+`&updatedAtSince=2022-04-26T07%3A20%3A33`
-        //+`&createdAtSince=2022-04-27T18%3A00%3A40`
         +`&translatedLanguage%5B%5D=en`
         +`&includeFutureUpdates=0`
         +`&order%5BcreatedAt%5D=desc`
@@ -96,6 +94,7 @@ async function getFollowingUpdates(lastPollTime) {
         return resp.data;
     } catch (error) {
         console.error(error);
+        console.error(error.response.data.errors);
         console.log("Failed to fetch updates");
     }
 }

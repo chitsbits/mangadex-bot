@@ -1,6 +1,6 @@
 const fs = require('node:fs');
 const { Client, Collection, Intents } = require('discord.js');
-const { pollUpdates } = require("./manga.js");
+const { pollUpdates, refreshSessionToken } = require("./manga.js");
 const { BOT_TOKEN } = require("./config.json");
 
 const bot = new Client({ intents: [Intents.FLAGS.GUILDS] });
@@ -33,13 +33,14 @@ bot.login(BOT_TOKEN).then(async () => {
         try {
             const config = JSON.parse(fs.readFileSync("./config.json"));
             if (config.ENABLE_UPDATES) {
+                console.log(`Polling for updates since ${oldTime}`);  
+                await refreshSessionToken();          
                 const updateEmbeds = await pollUpdates(oldTime);
-                console.log(`Polling for updates since ${oldTime}`);            
                 if (updateEmbeds.length > 0) user.send({ content: '\u200B', embeds: updateEmbeds});
             }
             oldTime = new Date().toISOString().slice(0,19);
         } catch (error) {
             console.log("There was an error with polling updates.");
         }
-    }, 60000);
+    }, 300000);
 })

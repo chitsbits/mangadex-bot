@@ -24,18 +24,7 @@ module.exports = {
         }
         else if (interaction.isButton()) {
             console.log('interaction is button');
-            if (interaction.customId === 'testButton') {
-                const buttonRow = new MessageActionRow()
-                .addComponents(
-                    new MessageButton()
-                        .setCustomId('testButton')
-                        .setLabel('~daddy~')
-                        .setStyle('PRIMARY')
-                        .setEmoji('😩')
-                );
-                await interaction.update({content: 'AMONG US', components: [buttonRow]});
-            }
-            else if (interaction.customId.slice(0, 10) === 'pageChange') {
+            if (interaction.customId.slice(0, 10) === 'pageChange') {
                 const page = parseInt(interaction.customId.slice(10));
                 const followingList = await getFollowingList();
                 const followingListEmbed = createMangaListEmbed(followingList, page)
@@ -59,17 +48,7 @@ module.exports = {
         }
         else if (interaction.isSelectMenu()) {
             console.log('interaction is select menu');
-
-            if (interaction.customId === 'testSelect') {
-                const resultEmbed = new MessageEmbed()
-                    .setColor('#0099ff')
-                    .setTitle('example result from menu')
-                    .setURL('https://discord.js.org')
-                    .setDescription('example description');
-                await interaction.update({ content: 'Your results:', embeds: [resultEmbed], components: [] });
-            }
-            else if (interaction.customId === 'search_result_menu') {
-
+            if (interaction.customId === 'search_result_menu') {
                 const mangaId = interaction.values[0];
                 const embed = createMangaSearchEmbed(await getManga(mangaId));
                 await interaction.update({ content: '\u200b', embeds: [embed], components: []});
