@@ -1,7 +1,6 @@
 .DS_Store
 .eslintrc.json
 .env
-config.json
 node_modules/
 testing.js
 commands/fetchupdate.js
