@@ -1,6 +1,6 @@
 const { MessageEmbed } = require('discord.js');
 const { default: axios } = require('axios');
-const { MD_USERNAME, MD_PASSWORD } = require("./config.json");
+require('dotenv').config()
 const fs = require("fs");
 
 const mdEndpoint = 'https://api.mangadex.org';
@@ -9,8 +9,8 @@ const uploadsEndpoint = 'https://uploads.mangadex.org';
 async function login() {
     try {
         const resp = await axios.post(`${mdEndpoint}/auth/login`, {
-            username: MD_USERNAME,
-            password: MD_PASSWORD
+            username: process.env.MD_USERNAME,
+            password: process.env.MD_PASSWORD
         });
         const token = resp.data.token;
         writeConfigTokens(token.session, token.refresh);
@@ -175,7 +175,7 @@ function createMangaListEmbed(mangaList, page) {
             .setTitle('View list on MangaDex')
             .setURL('https://mangadex.org/titles/follows')
             .setAuthor({
-                name: `${MD_USERNAME}'s following list`,
+                name: `${process.env.MD_USERNAME}'s following list`,
                 iconURL: 'https://i.imgur.com/wf3UqsY.jpg',
                 url: 'https://mangadex.org/user/me'
             })

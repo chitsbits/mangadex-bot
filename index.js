@@ -1,7 +1,7 @@
-const fs = require('node:fs');
 const { Client, Collection, Intents } = require('discord.js');
 const { pollUpdates, refreshSessionToken } = require("./manga.js");
-const { BOT_TOKEN } = require("./config.json");
+const fs = require('node:fs');
+require('dotenv').config()
 
 const bot = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
@@ -26,9 +26,9 @@ for (const file of eventFiles) {
     }
 }
 
-bot.login(BOT_TOKEN).then(async () => {
+bot.login(process.env.BOT_TOKEN).then(async () => {
     let oldTime = new Date().toISOString().slice(0,19);
-    const user = await bot.users.fetch(JSON.parse(fs.readFileSync("./config.json")).USER_ID);
+    const user = await bot.users.fetch(process.env.USER_ID);
     setInterval(async () => {
         try {
             const config = JSON.parse(fs.readFileSync("./config.json"));

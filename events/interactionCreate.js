@@ -1,12 +1,12 @@
 const { MessageButton, MessageActionRow, MessageEmbed } = require('discord.js');
 const { getManga, getFollowingList, createMangaSearchEmbed, createMangaListEmbed } = require('../manga.js');
-const fs = require("fs");
+require('dotenv').config()
 
 module.exports = {
 	name: 'interactionCreate',
 	async execute(interaction) {
         console.log(`Interaction caught: ${interaction}`);
-        const userId = JSON.parse(fs.readFileSync("./config.json")).USER_ID;
+        const userId = process.env.USER_ID;
         if (interaction.user.id != userId) return;
 
 		if (interaction.isCommand()) {

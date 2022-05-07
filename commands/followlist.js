@@ -25,9 +25,6 @@ module.exports = {
             if (followingList.total < 12) nextButton.setDisabled(true);
 
             buttonRow.addComponents(prevButton, nextButton);
-            // console.log(followingList);
-            // console.log(`\n\n\n${followingList.data}`);
-            // console.log(followingListEmbed);
             await interaction.editReply({ content: '\u200b', embeds: [followingListEmbed], components: [buttonRow]});
 
         } catch (error) {
